@@ -31,7 +31,7 @@ function setupWebaudio(filepath){
     loadSoundFile(filepath);
 
 // 4 - create an a source node that points at the <audio> element
-    sourceNode = audioCtx.createMediaElementSource(Element);
+    sourceNode = audioCtx.createMediaElementSource(element);
 
 // 5 - create an analyser node
     analyserNode = audioCtx.createAnalyser()// note the UK spelling of "Analyser"
@@ -50,14 +50,14 @@ the amplitude of that frequency.
     analyserNode.fftSize = DEFAULTS.numSamples;
 
 // 7 - create a gain (volume) node
-    gainNode = audioCTX.createGain();
+    gainNode = audioCtx.createGain();
     gainNode.gain.value = DEFAULTS.gain;
 
 
 // 8 - connect the nodes - we now have an audio graph
     sourceNode.connect(analyserNode);
     analyserNode.connect(gainNode);
-    gainNode.connect(AudioCtx.destination);
+    gainNode.connect(audioCtx.destination);
 }
 
 function loadSoundFile(filePath){
