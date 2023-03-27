@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sine Start</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        "use strict";
+        const canvasWidth = 600,
+            canvasHeight = 600,
+            divergence = 137.5,
+            c = 4,
+            fps = 60,
+            radius = 2;
+        let ctx,
+            n = 0,
+            increment = 1;
+
+        const init = () => {
+            ctx = canvas.getContext("2d");
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            document.querySelector("#btn-restart").addEventListener("click", () => {
+                n = 0;
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight, "black");
+            });
+            document.querySelector("#ctrl-increment").addEventListener("change", () => {
+                increment = parseFloat(document.querySelector("#ctrl-increment").value);
+            });
+            loop();
+        }
+        window.onload = init;
+
+
+        // helpers
+        const dtr = (degrees) => {
+            return degrees * (Math.PI / 180);
+        }
+
+        const drawCircle = (ctx, x, y, radius, color) => {
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        const loop = () => {
+            setTimeout(loop, 1000 / fps);
+            ctx.save();
+            ctx.globalAlpha = (1 / fps);
+            ctx.fillRect(0, 0, canvasWidth, canvasWidth, "black");
+            ctx.restore();
+            // each frame draw a new dot
+            // `a` is the angle
+            // `r` is the radius from the center (e.g. "Pole") of the flower
+            // `c` is the "padding/spacing" between the dots
+            let a = n * dtr(divergence);
+            let r = c * Math.sqrt(n);
+            //console.log(a, r);
+
+            let x = r * Math.cos(a) + canvasWidth / 2;
+            let y = r * Math.sin(a) + canvasHeight / 2;
+            //console.log(x, y);
+
+            let color = `rgb(${n % 256},${n % 128}, 255)`;
+            drawCircle(ctx, x, y, radius, color);
+            n += increment;
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <label>Increment Value</label>
+        <select id="ctrl-increment">
+            <option value="0.01">0.01</option>
+            <option value="0.1">0.1</option>
+            <option value="0.25">0.25</option>
+            <option value="0.5">0.5</option>
+            <option value="0.75">0.75</option>
+            <option value="1" selected>1</option>
+            <option value="1.25">1.25</option>
+            <option value="1.5">1.5</option>
+            <option value="1.75">1.75</option>
+            <option value="2">2</option>
+            <option value="5">4</option>
+        </select>
+        <button id="btn-restart">Restart App</button>
+    </div>
+    <div>Changes how much n changes each frame</div>
+    <div>The dots fade</div>
+    <div>Increased canvas size to 600 x 600</div>
+</body>
+
+</html>

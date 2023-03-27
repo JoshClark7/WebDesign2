@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>First Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid gray;
+        }
+        
+        body {
+            font-family: sans-serif;
+        }
+        
+        button {
+            font-size: 1.2em;
+        }
+        
+        section {
+            margin: .5em 0 .5em 0;
+        }
+    </style>
+
+    <script>
+        "use strict";
+
+        let ctx;
+        let canvas;
+
+        window.onload = init;
+
+        function init() {
+            console.log("page loaded!");
+            canvas = document.querySelector("canvas");
+            ctx = canvas.getContext("2d");
+            update();
+        }
+
+        // handy helper functions!
+        function getRandomColor() {
+            function getByte() {
+                return 55 + Math.round(Math.random() * 200);
+            }
+            return "rgba(" + getByte() + "," + getByte() + "," + getByte() + ",.8)";
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function drawRect(ctx, x, y, width, height, fillStyle = "black", lineWidth = 0, strokeStyle = "black") {
+            ctx.save();
+            ctx.fillStyle = fillStyle;
+            ctx.beginPath()
+            ctx.rect(x, y, width, height);
+            ctx.fill();
+            if (lineWidth > 0) {
+                ctx.strokeStyle = strokeStyle;
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+            }
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        function drawRandomRect(ctx) {
+            drawRect(ctx, getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(0, 100), getRandomInt(0, 100), getRandomColor(), getRandomInt(-10, 10), getRandomColor())
+        }
+
+        function drawRandomCircle(ctx) {
+            ctx.fillStyle = getRandomColor();
+            ctx.strokeStyle = getRandomColor();
+            ctx.lineWidth = getRandomInt(0, 30);
+            ctx.beginPath()
+            ctx.arc(getRandomInt(-100, 640), getRandomInt(-100, 480), getRandomInt(5, 100), 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawRandomLine(ctx) {
+            ctx.fillStyle = getRandomColor();
+            ctx.strokeStyle = getRandomColor();
+            ctx.lineWidth = getRandomInt(0, 30);
+            ctx.beginPath()
+            ctx.moveTo(getRandomInt(-100, 740), getRandomInt(-100, 580));
+            ctx.lineTo(getRandomInt(-100, 740), getRandomInt(-100, 580));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawRandom(ctx) {
+            let i = getRandomInt(0, 2);
+            switch (i) {
+                case 0:
+                    drawRandomRect(ctx)
+                    break;
+                case 1:
+                    drawRandomCircle(ctx)
+                    break;
+                case 2:
+                    drawRandomLine(ctx)
+                    break;
+            }
+        }
+
+        function update() {
+            requestAnimationFrame(update);
+            drawRandom(ctx);
+        }
+    </script>
+
+</head>
+
+<body>
+    <canvas width="640" height="480">
+		Get a real browser!
+	</canvas>
+</body>
+
+</html>

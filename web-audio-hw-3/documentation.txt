@@ -1,0 +1,5 @@
+I add basic treble, bass, and distortion nodes.
+
+The sprites class is Pulse. It pulses with a different speed depending on the current volume and data of the song.
+
+I made the background colors look better, edited the position of the line, and tried to make the arcs look more like a speaker. 10%
