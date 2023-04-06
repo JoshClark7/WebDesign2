@@ -35,13 +35,41 @@
       this.textContent = `Hey ${this.name}`;
     }
   }
+
+    class Hello3 extends HTMLElement{
+
+    constructor(){
+        super();
+        this.name = "Ace Coder";
+    }
+
+    static get observedAttributes(){
+        return ["data-name"];
+    }
+
+    // a component lifecycle event - called when the component is inserted into the DOM
+    connectedCallback(){
+      this.render();
+    }
+
+    attributeChangedCallback(attributeName, oldValue, newValue){
+        console.log(attributeName, oldValue, newValue);
+        if(oldValue == newValue) return;
+    }
+
+    render(){
+              this.textContent = `Greetings ${this.name}`;
+    }
+  }
+
     customElements.define('hello-1', Hello1);
     customElements.define('hello-2', Hello2);
+    customElements.define('hello-3', Hello3);
 
     window.onload = () => {
-        const hello2 = new Hello2();
-        hello2.name = "Jimmy";
-        document.body.appendChild(hello2);
+        //const hello2 = new Hello2();
+        //hello2.name = "Jimmy";
+        //document.body.appendChild(hello2);
     }
   </script>
 </head>
