@@ -1,18 +1,31 @@
 const template = document.createElement("template");
     template.innerHTML = `
-      <style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
         :host{
           display: inline-block;
-          background-color: #ddd;
+          height: 3rem;
+          line-height: 3rem;
         }
-        span{
-          color: #F76902;
-          font-variant: small-caps;
-          font-weight: bolder;
-          font-family: sans-serif;
+        #link{
+          display: inline-block;
+          width: 8rem;
+        }
+        #buttons{
+          display: inline-block;
+          vertical-align: middle;
+          line-height: normal;
+        }
+        a{
+          display: inline-block;
+          vertical-align: middle;
+          line-height: normal;
         }
         </style>
-        <span><a href=""></a></span>
+        <div class="has-background-link pl-1 pr-1">
+        
+        </div>
     `;
 
   class MyBookmark extends HTMLElement {
