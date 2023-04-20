@@ -37,26 +37,47 @@ window.onload = () => {
   };
 */
 
+let favorites = [];
+
 window.onload = () => {
   console.log("Window onLoad");
-  document.querySelector("#favorite-submit-button").onClick = (evt) => {
-    submitClicked(evt);
-  };
-  document.querySelector("#favorite-cancel-button").onClick = clearFormFields;
+  document.querySelector("form").addEventListener("submit", (evt) => {
+    if (evt.submitter == document.querySelector("#favorite-submit-button")) {
+      submitClicked(evt);
+    } else if (evt.submitter == document.querySelector("#favorite-cancel-button")) {
+      clearFormFields(evt);
+    }
+  });
+  
+  favorites[0] = new Favorite();
+  favorites[0] = 
+    {
+      fid: crypto.randomUUID(), // or just hard-code "d2e7e357-1b1f-4eea-b8f9-25af8aa17138"
+      text: "RIT", 
+      url: "https://www.rit.edu", 
+      comments: "A private university located near Rochester, NY."
+    };
+
+    console.log(favorites)
 };
 
-let submitClicked = (evt) => {
+const submitClicked = (evt) => {
   console.log("Submit clicked");
 
   evt.preventDefault();
   return false;
 };
 
-let clearFormFields = (evt) => {
+const clearFormFields = (evt) => {
   console.log("Clearing form fields");
   document.querySelector("#favorite-text").value = "";
   document.querySelector("#favorite-url").value = "";
   document.querySelector("#favorite-comments").value = "";
+
   evt.preventDefault();
   return false;
 };
+
+const createBookmarkComponent = (fid, text, url, comments) => {
+
+}
