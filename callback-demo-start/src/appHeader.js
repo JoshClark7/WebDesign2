@@ -12,52 +12,50 @@ template.innerHTML = `
 </header>
 `;
 
-class AppHeader extends HTMLElement{
-  constructor(){
-    super();
-    this.attachShadow({mode: "open"});
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.greeting = "Hello!";
-    this.farewell = "Goodbye!";
-  }
-
-  static get observedAttributes(){
-    return ["data-title","data-subtitle"];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue){
-    this.render();
-  }
-
-  connectedCallback(){
-    const defaultCallback = () => console.log(`this._callback is not defined for ${this.tagName}`);
-    this.callback = this.callback || defaultCallback;
-    
-    console.log("Connect Callack");
-
-    this.shadowRoot.querySelector("#btn-hello").onClick = () =>
-    {
-      console.log("Callback - Hello");
-      this.callback(this.greeting);
+class AppHeader extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.greeting = "Hello!";
+        this.farewell = "Goodbye!";
     }
 
-    this.shadowRoot.querySelector("#btn-goodbye").onClick = () =>
-    {
-      console.log("Callback - Goodbye");
-      this.callback(this.farewll);
+    static get observedAttributes() {
+        return ["data-title", "data-subtitle"];
     }
-    this.render();
-  }
 
-  disconnectedCallback(){
-    // II. CLEAN UP - SET THE BUTTON .ONCLICK HANDLERS TO NULL
-    console.log("Disconnect Callback");
-  }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
+    }
 
-  render(){
-    this.shadowRoot.querySelector(".title").innerHTML = this.dataset.title || "No title provided";
-    this.shadowRoot.querySelector(".subtitle").innerHTML = this.dataset.subtitle || "No subtitle provided";
-  }
-} 
+    connectedCallback() {
+        const defaultCallback = () => console.log(`this._callback is not defined for ${this.tagName}`);
+        this.callback = this.callback || defaultCallback;
+
+        console.log("Connect Callack");
+
+        this.shadowRoot.querySelector("#btn-hello").onClick = () => {
+            console.log("Callback - Hello");
+            this.callback(this.greeting);
+        }
+
+        this.shadowRoot.querySelector("#btn-goodbye").onClick = () => {
+            console.log("Callback - Goodbye");
+            this.callback(this.farewll);
+        }
+        this.render();
+    }
+
+    disconnectedCallback() {
+        // II. CLEAN UP - SET THE BUTTON .ONCLICK HANDLERS TO NULL
+        console.log("Disconnect Callback");
+    }
+
+    render() {
+        this.shadowRoot.querySelector(".title").innerHTML = this.dataset.title || "No title provided";
+        this.shadowRoot.querySelector(".subtitle").innerHTML = this.dataset.subtitle || "No subtitle provided";
+    }
+}
 
 customElements.define('app-header', AppHeader);

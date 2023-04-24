@@ -1,10 +1,10 @@
-class Favorite{
+class Favorite {
     constructor() {
-        this.fid;
-        this.text;
-        this.url;
-        this.comments;
-      }
+        this.fid = undefined;
+        this.text = undefined;
+        this.url = undefined;
+        this.comments = undefined;
+    }
 }
 
 export { Favorite };
