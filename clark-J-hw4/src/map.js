@@ -1,5 +1,5 @@
 // I. Variables & constants
-const accessToken = "";
+const accessToken = "pk.eyJ1Ijoiam9zaHRjbGFyayIsImEiOiJjbGdiM2hrN2cwMDBxM2psOHl6cmE1cnQ4In0.l3b0WTuZTxUobof5W6NKEg";
 let map;
 
 // An example of how our GeoJSON is formatted
